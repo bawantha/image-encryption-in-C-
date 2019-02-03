@@ -72,9 +72,9 @@ int main(){
         int temp=in[i];
         in[i]=in[KEY[i]];
         in[KEY[i]]=temp;
+        
     }
-        fwrite(in,sizeof(char),BLOCK_SIZE,fo);
-
+    fwrite(in,sizeof(char),BLOCK_SIZE,fo);
     }
 }
     
