@@ -14,7 +14,7 @@
 #define OUTPUT_FILE_NAME_ECB "enc_watercolor_ecb.ppm"
 #define OUTPUT_FILE_NAME_CBC "enc_watercolor_CBC.ppm"
 #define BLOCK_SIZE 24
-const int  KEY[]={11,
+const int  KEY[]={10,
 10,
 17,
  3,
