@@ -49,7 +49,7 @@ int main()
 
     FILE *fp, *fo;
     fp = fopen("watercolor.ppm", "rb");
-    fo = fopen("watercolor_ECB.ppm", "wb");
+    fo = fopen("watercolor_CBC.ppm", "wb");
 
     // header value is taken
     int header_read = fread(header, sizeof(char), 54, fp);
@@ -69,22 +69,19 @@ int main()
 
             for (int i = 0; i < BLOCK_SIZE; ++i)
             {
-                int temp = in[i];
-                in[i] = in[KEY[i]];
-                in[KEY[i]] = temp;
+                char temp = (char)xor[i];
+                xor[i] = (char)xor[KEY[i]];
+                xor[KEY[i]] = temp;
             }
             for (int i = 0; i < BLOCK_SIZE; i++)
             {
-                preCipherBlock[i] = in[i];
+                preCipherBlock[i] = (char)xor[i];
             }
             start++;
         }
         else
         {
-            for (int i = 0; i < BLOCK_SIZE; i++)
-            {
-                xor[i] = in[i] ^ preCipherBlock[i];
-            }
+           
 
             if (read < BLOCK_SIZE)
             {
@@ -95,17 +92,23 @@ int main()
                 }
                 break;
             }
+
+             for (int i = 0; i < BLOCK_SIZE; i++)
+            {
+                xor[i] = in[i] ^ preCipherBlock[i];
+            }
+
             for (int i = 0; i < BLOCK_SIZE; ++i)
             {
-                int temp = in[i];
-                in[i] = in[KEY[i]];
+                char temp = (char)xor[i];
+                in[i] = (char)in[KEY[i]];
                 in[KEY[i]] = temp;
             }
         }
         for (int i = 0; i < BLOCK_SIZE; i++)
         {
-            preCipherBlock[i] = in[i];
+            preCipherBlock[i] = (char)xor[i];
         }
-        fwrite(in, sizeof(char), BLOCK_SIZE, fo);
+        fwrite(preCipherBlock, sizeof(char), BLOCK_SIZE, fo);
     }
 }

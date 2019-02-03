@@ -69,7 +69,7 @@ int main(){
             break;
         }
         for(int i=0;i<BLOCK_SIZE;++i){
-        int temp=in[i];
+        char temp=in[i];
         in[i]=in[KEY[i]];
         in[KEY[i]]=temp;
     }
