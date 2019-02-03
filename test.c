@@ -23,49 +23,35 @@ int main(){
    char header[54];
   
    fp = fopen("watercolor.ppm","rb");
-   fread(header, sizeof(char),54,fp);
-   for(int i =0;i<54;i++){
-      printf("%c \n",header[i]);
-   }
-   // int i=60;
-   // while(i) {
-   //    c = fgetc(fp);
-   //    if( feof(fp) ) { 
-   //       break ;
-   //    }
-   //     int unicode= (int)c;
-   //    printf("%d    %c  \n ", unicode,c);
-   //    --i;
-   // }
-
+   fread(header, sizeof(char),53,fp);
    char in[BLOCK_SIZE];
    char buffer[BLOCK_SIZE];
-   int numberOfBlocks=0;
+   int numberOfBlocks=10;
+
+
+   long amount_read=fread(in,sizeof(char),BLOCK_SIZE,fp);
+   printf("%s",in);
+ 
+
+
+
+
+
+
+
    while(numberOfBlocks>=0){
       
       long amount_read = fread(in, sizeof(char),BLOCK_SIZE,fp);
       if(amount_read<BLOCK_SIZE){
          memcpy(buffer,in,amount_read);
-         for(int i=amount_read;i<BLOCK_SIZE+1;i++){
-            buffer[i]=0;
-         }
+         
          break;
          memcpy(buffer,in,BLOCK_SIZE);
       }
-      numberOfBlocks++;
-
-
-   }
-
-
-
-
-   void myEncryptAlgo(char *block[BLOCK_SIZE],int KEY,){
-      
-   }
-   
+      numberOfBlocks--;
    
    fclose(fp);
    
    return(0);
+   }
 }
